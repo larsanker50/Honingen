@@ -3,6 +3,8 @@ const dealerCards = document.getElementById("dealerCards");
 const resultaat = document.getElementById("resultaat");
 const playerCard = document.getElementsByClassName("playerCard");
 const dealerCard = document.getElementsByClassName("dealerCard");
+const amountPlayerCards = document.getElementById("amountPlayerCards")
+const amountDealerCards = document.getElementById("amountDealerCards")
 let playerCardsArray = [];
 let dealerCardsArray = [];
 let usedCardsArray = [];
@@ -17,7 +19,7 @@ class Deck {
         this.symbol = symbol;
         this.rank = rank;
     };
-  };
+};
 
 let card1 = new Deck(2, "heart", 2);
 let card2 = new Deck(3, "heart", 3);
@@ -71,8 +73,8 @@ let card49 = new Deck(10, "spade", "jack");
 let card50 = new Deck(10, "spade", "queen");
 let card51 = new Deck(10, "spade", "king");
 let card52 = new Deck(11, "spade", "ace");
-let card53 = new Deck(12, "joker", "joker" );
-let card54 = new Deck(12, "joker", "joker" );
+let card53 = new Deck(12, "joker", "joker");
+let card54 = new Deck(12, "joker", "joker");
 
 
 function randomPlayerCard() {
@@ -82,62 +84,66 @@ function randomPlayerCard() {
     if (usedCardsArray.includes(card.toString()) == false) {
         playerCardsArray.push(eval(card));
         usedCardsArray.push(card.toString());
-    } else if (usedCardsArray.length < 54){
+    } else if (usedCardsArray.length < 54) {
         randomPlayerCard();
-      }}
+    }
+}
 
 function randomDealerCard() {
     let random = Math.floor((Math.random() * 54) + 1);
     let card = ("card" + random);
     if (usedCardsArray.includes(card.toString()) == false) {
-      dealerCardsArray.push(eval(card));
-      usedCardsArray.push(card.toString());
-}  else if (usedCardsArray.length < 54){
-    randomDealerCard();
-}}
+        dealerCardsArray.push(eval(card));
+        usedCardsArray.push(card.toString());
+    } else if (usedCardsArray.length < 54) {
+        randomDealerCard();
+    }
+}
 
 
-document.getElementById("delenKnop").addEventListener("click", function() {
+document.getElementById("delenKnop").addEventListener("click", function () {
     if (gedeeld == false) {
         while (usedCardsArray.length < 54) {
             randomPlayerCard()
             randomDealerCard()
-            }
-    
-            let divplayer = playerCards.appendChild(document.createElement("div"));
-            divplayer.classList.add("playerCard");
-            playerCard[0].innerHTML = "Honing"+"\n"+"kaarten"+"\n"+"deck";
-            playerCard[0].classList.add("brown");
+        }
 
-            let divdealer = dealerCards.appendChild(document.createElement("div"));
-            divdealer.classList.add("dealerCard");
-            dealerCard[0].innerHTML = "Honing"+"\n"+"kaarten"+"\n"+"deck";
-            dealerCard[0].classList.add("brown");
-    
-    
-            console.log(dealerCardsArray.length)
-            console.log(playerCardsArray.length)
-            
-            document.getElementById("delenKnop").innerHTML = "Volgende Kaart"
-            }
+        let divplayer = playerCards.appendChild(document.createElement("div"));
+        divplayer.classList.add("playerCard");
+        playerCard[0].innerHTML = "Honing" + "\n" + "kaarten" + "\n" + "deck";
+        playerCard[0].classList.add("brown");
+
+        let divdealer = dealerCards.appendChild(document.createElement("div"));
+        divdealer.classList.add("dealerCard");
+        dealerCard[0].innerHTML = "Honing" + "\n" + "kaarten" + "\n" + "deck";
+        dealerCard[0].classList.add("brown");
+
+
+        console.log(dealerCardsArray.length)
+        console.log(playerCardsArray.length)
+
+        document.getElementById("delenKnop").innerHTML = "Volgende Kaart"
+    }
     if (gedeeld == true) {
-    playerCard[0].innerHTML = "Honing"+"\n"+"kaarten"+"\n"+"deck";
-    playerCard[0].classList.add("brown");
-    playerCard[0].classList.remove("diamond", "heart", "spade", "joker", "club")
-    dealerCard[0].innerHTML = "Honing"+"\n"+"kaarten"+"\n"+"deck";
-    dealerCard[0].classList.add("brown");
-    dealerCard[0].classList.remove("diamond", "heart", "spade", "joker", "club")
-    console.log(dealerCardsArray.length)
-    console.log(playerCardsArray.length)
+        playerCard[0].innerHTML = "Honing" + "\n" + "kaarten" + "\n" + "deck";
+        playerCard[0].classList.add("brown");
+        playerCard[0].classList.remove("diamond", "heart", "spade", "joker", "club")
+        dealerCard[0].innerHTML = "Honing" + "\n" + "kaarten" + "\n" + "deck";
+        dealerCard[0].classList.add("brown");
+        dealerCard[0].classList.remove("diamond", "heart", "spade", "joker", "club")
+        console.log(dealerCardsArray.length)
+        console.log(playerCardsArray.length)
     }
     gedeeld = true
-    })
+    amountPlayerCards.innerHTML = "De speler heeft op dit moment " + playerCardsArray.length + " kaarten op de stapel."
+    amountDealerCards.innerHTML = "De computer heeft op dit moment " + dealerCardsArray.length + " kaarten op de stapel."
+})
 
-document.getElementById("beurtKnop").addEventListener("click", function() {
-    playerCard[0].innerHTML = ((playerCardsArray[0].symbol)+",\n"+(playerCardsArray[0].rank));
+document.getElementById("beurtKnop").addEventListener("click", function () {
+    playerCard[0].innerHTML = ((playerCardsArray[0].symbol) + ",\n" + (playerCardsArray[0].rank));
     playerCard[0].classList.add(playerCardsArray[0].symbol);
     playerCard[0].classList.remove("brown");
-    dealerCard[0].innerHTML = ((dealerCardsArray[0].symbol)+",\n"+(dealerCardsArray[0].rank));
+    dealerCard[0].innerHTML = ((dealerCardsArray[0].symbol) + ",\n" + (dealerCardsArray[0].rank));
     dealerCard[0].classList.add(dealerCardsArray[0].symbol);
     dealerCard[0].classList.remove("brown");
     scorePlayer = playerCardsArray[0].value
@@ -151,7 +157,9 @@ document.getElementById("beurtKnop").addEventListener("click", function() {
     } else if (scorePlayer < scoreDealer) {
         resultaat.innerHTML = "Computer heeft de kaart gewonnen"
         dealerCardsArray.push(playerCardsArray[0])
+        dealerCardsArray.push(dealerCardsArray[0])
         playerCardsArray.shift();
+        dealerCardsArray.shift();
     } else if (scorePlayer == scoreDealer) {                                    // hij loopt hier ergens nog vast. de [0] van de winnende kaart maar achteraan gepusht worden. zoals bij de eerste playercardsarra ding
         scorePlayer = playerCardsArray[1].value
         scoreDealer = dealerCardsArray[1].value
@@ -161,12 +169,22 @@ document.getElementById("beurtKnop").addEventListener("click", function() {
             dealerCardsArray.shift();
             playerCardsArray.push(dealerCardsArray[0])
             dealerCardsArray.shift();
+            playerCardsArray.push(playerCardsArray[0])
+            playerCardsArray.shift();
+            playerCardsArray.push(playerCardsArray[0])
+            playerCardsArray.shift();
         } else if (scorePlayer < scoreDealer) {
             resultaat.innerHTML = "Computer heeft de kaart gewonnen"
             dealerCardsArray.push(playerCardsArray[0])
             playerCardsArray.shift();
             dealerCardsArray.push(playerCardsArray[0])
             playerCardsArray.shift();
+            dealerCardsArray.push(dealerCardsArray[0])
+            dealerCardsArray.shift();
+            dealerCardsArray.push(dealerCardsArray[0])
+            dealerCardsArray.shift();
+        }
     }
-    }
+    amountPlayerCards.innerHTML = "De speler heeft op dit moment " + playerCardsArray.length + " kaarten op de stapel."
+    amountDealerCards.innerHTML = "De computer heeft op dit moment " + dealerCardsArray.length + " kaarten op de stapel."
 })
