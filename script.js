@@ -5,10 +5,13 @@ const playerCard = document.getElementsByClassName("playerCard");
 const dealerCard = document.getElementsByClassName("dealerCard");
 const amountPlayerCards = document.getElementById("amountPlayerCards")
 const amountDealerCards = document.getElementById("amountDealerCards")
+const drieBlieHTML = document.getElementById("drieBlie")
 let playerCardsArray = [];
 let dealerCardsArray = [];
 let usedCardsArray = [];
 let gedeeld = false
+let omgedraaid = false
+let drieBlieEvent = false
 let scoreDealer = 0
 let scorePlayer = 0
 
@@ -102,6 +105,7 @@ function randomDealerCard() {
 
 
 document.getElementById("delenKnop").addEventListener("click", function () {
+    drieBlieHTML.innerHTML = ""
     if (gedeeld == false) {
         while (usedCardsArray.length < 54) {
             randomPlayerCard()
@@ -125,66 +129,102 @@ document.getElementById("delenKnop").addEventListener("click", function () {
         document.getElementById("delenKnop").innerHTML = "Volgende Kaart"
     }
     if (gedeeld == true) {
+        if (playerCardsArray.length == 0) {
+            resultaat.innerHTML = "Computer heeft het spel gewonnen"
+            return
+        } else if (dealerCardsArray.length == 0) {
+            resultaat.innerHTML = "Speler heeft het spel gewonnen"
+            return
+        }
         playerCard[0].innerHTML = "Honing" + "\n" + "kaarten" + "\n" + "deck";
         playerCard[0].classList.add("brown");
         playerCard[0].classList.remove("diamond", "heart", "spade", "joker", "club")
         dealerCard[0].innerHTML = "Honing" + "\n" + "kaarten" + "\n" + "deck";
         dealerCard[0].classList.add("brown");
         dealerCard[0].classList.remove("diamond", "heart", "spade", "joker", "club")
-        console.log(dealerCardsArray.length)
-        console.log(playerCardsArray.length)
     }
     gedeeld = true
+    omgedraaid = false
     amountPlayerCards.innerHTML = "De speler heeft op dit moment " + playerCardsArray.length + " kaarten op de stapel."
     amountDealerCards.innerHTML = "De computer heeft op dit moment " + dealerCardsArray.length + " kaarten op de stapel."
 })
 
 document.getElementById("beurtKnop").addEventListener("click", function () {
-    playerCard[0].innerHTML = ((playerCardsArray[0].symbol) + ",\n" + (playerCardsArray[0].rank));
-    playerCard[0].classList.add(playerCardsArray[0].symbol);
-    playerCard[0].classList.remove("brown");
-    dealerCard[0].innerHTML = ((dealerCardsArray[0].symbol) + ",\n" + (dealerCardsArray[0].rank));
-    dealerCard[0].classList.add(dealerCardsArray[0].symbol);
-    dealerCard[0].classList.remove("brown");
-    scorePlayer = playerCardsArray[0].value
-    scoreDealer = dealerCardsArray[0].value
-    if (scorePlayer > scoreDealer) {
-        resultaat.innerHTML = "Speler heeft de kaart gewonnen"
-        playerCardsArray.push(dealerCardsArray[0])
-        playerCardsArray.push(playerCardsArray[0])
-        playerCardsArray.shift();
-        dealerCardsArray.shift();
-    } else if (scorePlayer < scoreDealer) {
-        resultaat.innerHTML = "Computer heeft de kaart gewonnen"
-        dealerCardsArray.push(playerCardsArray[0])
-        dealerCardsArray.push(dealerCardsArray[0])
-        playerCardsArray.shift();
-        dealerCardsArray.shift();
-    } else if (scorePlayer == scoreDealer) {                                    // hij loopt hier ergens nog vast. de [0] van de winnende kaart maar achteraan gepusht worden. zoals bij de eerste playercardsarra ding
-        scorePlayer = playerCardsArray[1].value
-        scoreDealer = dealerCardsArray[1].value
+    if (omgedraaid == false) {
+        if (playerCardsArray.length == 0) {
+            resultaat.innerHTML = "Computer heeft het spel gewonnen"
+            return
+        } else if (dealerCardsArray.length == 0) {
+            resultaat.innerHTML = "Speler heeft het spel gewonnen"
+            return
+        }
+        playerCard[0].innerHTML = ((playerCardsArray[0].symbol) + ",\n" + (playerCardsArray[0].rank));
+        playerCard[0].classList.add(playerCardsArray[0].symbol);
+        playerCard[0].classList.remove("brown");
+        dealerCard[0].innerHTML = ((dealerCardsArray[0].symbol) + ",\n" + (dealerCardsArray[0].rank));
+        dealerCard[0].classList.add(dealerCardsArray[0].symbol);
+        dealerCard[0].classList.remove("brown");
+        scorePlayer = playerCardsArray[0].value
+        scoreDealer = dealerCardsArray[0].value
+        if (scorePlayer == 3) {
+            let random = Math.floor((Math.random() * 1) + 1);
+            if (random == 1) {
+                scorePlayer = 100
+                drieBlieHTML.innerHTML = "Speler zegt: DRIE BLIE!!!!!"
+            }
+        }
+        if (scoreDealer == 3) {
+            let random = Math.floor((Math.random() * 1) + 1);
+            if (random == 1) {
+                scoreDealer = 100
+                drieBlieHTML.innerHTML = "Computer zegt: DRIE BLIE!!!!!"
+            }
+        }
         if (scorePlayer > scoreDealer) {
             resultaat.innerHTML = "Speler heeft de kaart gewonnen"
             playerCardsArray.push(dealerCardsArray[0])
-            dealerCardsArray.shift();
-            playerCardsArray.push(dealerCardsArray[0])
-            dealerCardsArray.shift();
             playerCardsArray.push(playerCardsArray[0])
             playerCardsArray.shift();
-            playerCardsArray.push(playerCardsArray[0])
-            playerCardsArray.shift();
+            dealerCardsArray.shift();
         } else if (scorePlayer < scoreDealer) {
             resultaat.innerHTML = "Computer heeft de kaart gewonnen"
             dealerCardsArray.push(playerCardsArray[0])
-            playerCardsArray.shift();
-            dealerCardsArray.push(playerCardsArray[0])
-            playerCardsArray.shift();
             dealerCardsArray.push(dealerCardsArray[0])
+            playerCardsArray.shift();
             dealerCardsArray.shift();
-            dealerCardsArray.push(dealerCardsArray[0])
-            dealerCardsArray.shift();
+        } else if (scorePlayer == scoreDealer) {
+            scorePlayer = playerCardsArray[1].value
+            scoreDealer = dealerCardsArray[1].value
+            if (scorePlayer > scoreDealer) {
+                resultaat.innerHTML = "Speler heeft de kaart gewonnen"
+                playerCardsArray.push(dealerCardsArray[0])
+                dealerCardsArray.shift();
+                playerCardsArray.push(dealerCardsArray[0])
+                dealerCardsArray.shift();
+                playerCardsArray.push(playerCardsArray[0])
+                playerCardsArray.shift();
+                playerCardsArray.push(playerCardsArray[0])
+                playerCardsArray.shift();
+            } else if (scorePlayer < scoreDealer) {
+                resultaat.innerHTML = "Computer heeft de kaart gewonnen"
+                dealerCardsArray.push(playerCardsArray[0])
+                playerCardsArray.shift();
+                dealerCardsArray.push(playerCardsArray[0])
+                playerCardsArray.shift();
+                dealerCardsArray.push(dealerCardsArray[0])
+                dealerCardsArray.shift();
+                dealerCardsArray.push(dealerCardsArray[0])
+                dealerCardsArray.shift();
+            } else {
+                playerCardsArray.push(dealerCardsArray[0])
+                dealerCardsArray.push(playerCardsArray[0])
+                dealerCardsArray.shift();
+                playerCardsArray.shift();
+            }
         }
+        amountPlayerCards.innerHTML = "De speler heeft op dit moment " + playerCardsArray.length + " kaarten op de stapel."
+        amountDealerCards.innerHTML = "De computer heeft op dit moment " + dealerCardsArray.length + " kaarten op de stapel."
+        omgedraaid = true
+        drieBlieEvent = false
     }
-    amountPlayerCards.innerHTML = "De speler heeft op dit moment " + playerCardsArray.length + " kaarten op de stapel."
-    amountDealerCards.innerHTML = "De computer heeft op dit moment " + dealerCardsArray.length + " kaarten op de stapel."
 })
