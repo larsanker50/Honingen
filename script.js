@@ -12,6 +12,8 @@ let usedCardsArray = [];
 let gedeeld = false;
 let omgedraaid = false;
 let drieBlieEvent = false;
+delenKnopAvailable = true
+kaaartOmdraaiKnopAvailable = false
 let scoreDealer = 0;
 let scorePlayer = 0;
 
@@ -79,6 +81,7 @@ let card52 = new Deck(14, "spade", "ace");
 let card53 = new Deck(15, "joker", "joker");
 let card54 = new Deck(15, "joker", "joker");
 
+document.getElementById("beurtKnop").style.backgroundColor = "firebrick"
 
 function randomPlayerCard() {
 
@@ -105,6 +108,8 @@ function randomDealerCard() {
 
 
 document.getElementById("delenKnop").addEventListener("click", function () {
+    if (delenKnopAvailable == false) {return}
+    resultaat.innerHTML = "";
     drieBlieHTML.innerHTML = "";
     if (gedeeld == false) {
         while (usedCardsArray.length < 54) {
@@ -114,13 +119,11 @@ document.getElementById("delenKnop").addEventListener("click", function () {
 
         let divplayer = playerCards.appendChild(document.createElement("div"));
         divplayer.classList.add("playerCard");
-        playerCard[0].innerHTML = "Honing" + "\n" + "kaarten" + "\n" + "deck";
-        playerCard[0].classList.add("brown");
+        playerCard[0].innerHTML = ""
 
         let divdealer = dealerCards.appendChild(document.createElement("div"));
         divdealer.classList.add("dealerCard");
-        dealerCard[0].innerHTML = "Honing" + "\n" + "kaarten" + "\n" + "deck";
-        dealerCard[0].classList.add("brown");
+        dealerCard[0].innerHTML = ""
 
 
         console.log(dealerCardsArray.length);
@@ -129,6 +132,8 @@ document.getElementById("delenKnop").addEventListener("click", function () {
         document.getElementById("delenKnop").innerHTML = "Volgende beurt";
     };
     if (gedeeld == true) {
+        dealerCard[0].classList.remove("HTMLCard")
+        dealerCard[0].classList.remove("HTMLCard")
         if (playerCardsArray.length == 0) {
             resultaat.innerHTML = "Computer heeft het spel gewonnen";
             playerCards.innerHTML = "";
@@ -140,20 +145,23 @@ document.getElementById("delenKnop").addEventListener("click", function () {
             dealerCards.classList.remove("dealerCard");
             return;
         };
-        playerCard[0].innerHTML = "Honing" + "\n" + "kaarten" + "\n" + "deck";
-        playerCard[0].classList.add("brown");
+        playerCard[0].innerHTML = ""
         playerCard[0].classList.remove("diamond", "heart", "spade", "joker", "club");
-        dealerCard[0].innerHTML = "Honing" + "\n" + "kaarten" + "\n" + "deck";
-        dealerCard[0].classList.add("brown");
+        dealerCard[0].innerHTML = ""
         dealerCard[0].classList.remove("diamond", "heart", "spade", "joker", "club");
     };
     gedeeld = true;
     omgedraaid = false;
     amountPlayerCards.innerHTML = "De speler heeft op dit moment " + playerCardsArray.length + " kaarten op de stapel.";
     amountDealerCards.innerHTML = "De computer heeft op dit moment " + dealerCardsArray.length + " kaarten op de stapel.";
+    delenKnopAvailable = false
+    kaaartOmdraaiKnopAvailable = true
+    document.getElementById("delenKnop").style.backgroundColor = "firebrick"
+    document.getElementById("beurtKnop").style.backgroundColor = "#4CAF50"
 });
 
 document.getElementById("beurtKnop").addEventListener("click", function () {
+    if (kaaartOmdraaiKnopAvailable == false) {return}
     if (playerCardsArray.length == 0) {
         resultaat.innerHTML = "Computer heeft het spel gewonnen";
         playerCards.innerHTML = "";
@@ -168,10 +176,10 @@ document.getElementById("beurtKnop").addEventListener("click", function () {
     if (omgedraaid == false) {
         playerCard[0].innerHTML = ((playerCardsArray[0].symbol) + ",\n" + (playerCardsArray[0].rank));
         playerCard[0].classList.add(playerCardsArray[0].symbol);
-        playerCard[0].classList.remove("brown");
         dealerCard[0].innerHTML = ((dealerCardsArray[0].symbol) + ",\n" + (dealerCardsArray[0].rank));
         dealerCard[0].classList.add(dealerCardsArray[0].symbol);
-        dealerCard[0].classList.remove("brown");
+        dealerCard[0].classList.add("HTMLCard")
+        playerCard[0].classList.add("HTMLCard")
         scorePlayer = playerCardsArray[0].value;
         scoreDealer = dealerCardsArray[0].value;
         if (scorePlayer == 2 && scoreDealer == 15) {
@@ -211,7 +219,7 @@ document.getElementById("beurtKnop").addEventListener("click", function () {
             scorePlayer = playerCardsArray[1].value;
             scoreDealer = dealerCardsArray[1].value;
             if (scorePlayer > scoreDealer) {
-                resultaat.innerHTML = "Speler heeft alle kaarten gewonnen";
+                resultaat.innerHTML = "Speler heeft alle battle kaarten gewonnen";
                 playerCardsArray.push(dealerCardsArray[0]);
                 dealerCardsArray.shift();
                 playerCardsArray.push(dealerCardsArray[0]);
@@ -221,7 +229,7 @@ document.getElementById("beurtKnop").addEventListener("click", function () {
                 playerCardsArray.push(playerCardsArray[0]);
                 playerCardsArray.shift();
             } else if (scorePlayer < scoreDealer) {
-                resultaat.innerHTML = "Computer heeft alle kaarten gewonnen";
+                resultaat.innerHTML = "Computer heeft alle battle kaarten gewonnen";
                 dealerCardsArray.push(playerCardsArray[0]);
                 playerCardsArray.shift();
                 dealerCardsArray.push(playerCardsArray[0]);
@@ -242,4 +250,8 @@ document.getElementById("beurtKnop").addEventListener("click", function () {
         omgedraaid = true;
         drieBlieEvent = false;
     };
+    delenKnopAvailable = true
+    kaaartOmdraaiKnopAvailable = false
+    document.getElementById("delenKnop").style.backgroundColor = "#4CAF50"
+    document.getElementById("beurtKnop").style.backgroundColor = "firebrick"
 });
