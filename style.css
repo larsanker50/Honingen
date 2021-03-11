@@ -2,33 +2,121 @@
     font-family: Arial, sans-serif;
 }
 
-.playerCard, .dealerCard {
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+div {
+    padding: 1px;
+}
+
+
+.deck, .HTMLCard {
     display: inline-block;
     width: 3.9em;
     height: 5.6em;
     border: 8px solid black;
     border-radius: .3em;
-    -moz-border-radius: .3em;
-    -webkit-border-radius: .3em;
-    -khtml-border-radius: .3em;
     padding: .25em;
     margin: 0 .5em .5em 0;
     text-align: center;
-    font-size: 1.2em;
+    font-size: 1.5em;
     font-weight: normal;
     position: relative;
-    background-color: #fff;
+    background-repeat: no-repeat;
+    background-position: bottom;
+    background-size: 75%;
     -moz-box-shadow: .2em .2em .5em #333;
     -webkit-box-shadow: .2em .2em .5em #333;
     box-shadow: .2em .2em .5em #333;
     white-space: pre;
 }
 
-.brown {
-    background-color: brown;
-    border-color: black;
+.dealerCard {
+    transform: rotate(180deg); 
+}
+
+#dealerDeck {
+    transform: rotate(180deg); 
 }
 
 .diamond, .heart {
     border-color: firebrick;
+
+}
+
+.heart {
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/e/ec/Suit_Hearts.svg);
+}
+
+.diamond {
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/d/db/SuitDiamonds.svg);
+}
+
+.club {
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/8/8a/SuitClubs.svg);
+}
+
+.spade {
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/5/5b/SuitSpades.svg);
+}
+
+.joker {
+    background-image: url(https://cdn.vegaoo.nl/images/rep_art/gra/201/7/201718/joker-kostuum-voor-jongens.jpg);
+    background-size: 60%;
+    border: 1px solid black;
+    font-size: 2.2em;
+}
+
+.brown {
+    background-image: url(https://cdn.pixabay.com/photo/2014/12/21/23/55/glass-576337_960_720.png);
+    background-color: brown;
+    border: 8px solid black;
+}
+
+.button {
+    padding: 15px 25px;
+    font-size: 24px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+ 
+.button:active {
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
+
+#newGame {
+    background-color: darkturquoise;
+}
+
+#drieBlie {
+    background-color: darkviolet;
+    min-width: 20px;
+    max-width: 400px;
+    min-height: 20px;
+    height: 20 px;
+    text-align: center;
+    border: 1px solid black;
+    font-size: 20px;
+    border-radius: .3em;
+}
+
+#resultaat {
+    background-color: yellow;
+    min-width: 20px;
+    max-width: 400px;
+    min-height: 20px;
+    height: 20 px;
+    text-align: center;
+    border: 1px solid black;
+    font-size: 20px;
+    border-radius: .3em;
 }
