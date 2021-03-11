@@ -10,20 +10,30 @@
 </head>
 
 <body>
-    <h1>Honingen Online Singeplayer [BETA]</h1>
-    <button onClick="window.location.reload();">Nieuw spel</button>
-    <button id="delenKnop">delen</button>
-    <button id="beurtKnop">draai de bovenste kaart om</button>
-    <h1 id="drieBlie"></h1>
-    <h1 id="resultaat"></h1>
-    <h2>Playercard</h2>
-    <div id="playerCards">
+    <div id="box">
+        <div class="row"><h1>Honingen Online Singeplayer [BETA]</h1></div>
+        <div class="row">        
+            <h1 id="drieBlie"></h1>
+            <h1 id="resultaat"></h1>
+        </div>
+        <div class="row"><h2>Computerkaart</h2></div>
+        <div class="row">
+            <div class="deck brown" id="dealerDeck"></div>
+            <div id="dealerCards"></div>
+            <div id="amountDealerCards"></div>
+        </div>
+        <div class="row"><h2>spelerkaart</h2></div>
+        <div class="row">
+            <div class="deck brown"></div>
+            <div id="playerCards"></div>
+            <div id="amountPlayerCards"></div>
+        </div>
+        <div class="row">
+        <button onClick="window.location.reload();" id="newGame" class="button">Nieuw spel</button>
+        <button id="delenKnop" class="button">delen</button>
+        <button id="beurtKnop" class="button">draai de bovenste kaart om</button>
+        </div>
     </div>
-    <div id="amountPlayerCards"></div>
-    <br>
-    <h2>Computercard</h2>
-    <div id="dealerCards"></div>
-    <div id="amountDealerCards"></div>
     <script type="text/javascript" src="script.js"></script>
 </body>
 
