@@ -112,6 +112,10 @@ document.getElementById("delenKnop").addEventListener("click", function () {
     resultaat.innerHTML = "";
     drieBlieHTML.innerHTML = "";
     if (gedeeld == false) {
+        document.getElementsByClassName("emptyDeck")[0].classList.add("deck", "brown")
+        document.getElementsByClassName("emptyDeck")[1].classList.add("deck", "brown")
+        document.getElementsByClassName("emptyDeck")[0].innerHTML = "Honingen" + ",\n" +  "Deck"
+        document.getElementsByClassName("emptyDeck")[1].innerHTML = "Honingen" + ",\n" +  "Deck"
         while (usedCardsArray.length < 54) {
             randomPlayerCard();
             randomDealerCard();
@@ -133,16 +137,30 @@ document.getElementById("delenKnop").addEventListener("click", function () {
     };
     if (gedeeld == true) {
         dealerCard[0].classList.remove("HTMLCard")
-        dealerCard[0].classList.remove("HTMLCard")
+        playerCard[0].classList.remove("HTMLCard")
         if (playerCardsArray.length == 0) {
             resultaat.innerHTML = "Computer heeft het spel gewonnen";
             playerCards.innerHTML = "";
+            dealerCards.innerHTML = "";
             playerCards.classList.remove("playerCard");
+            delenKnopAvailable = false
+            kaaartOmdraaiKnopAvailable = false
+            document.getElementById("delenKnop").style.backgroundColor = "firebrick"
+            document.getElementById("beurtKnop").style.backgroundColor = "firebrick"
+            document.getElementsByClassName("emptyDeck")[1].classList.remove("deck", "brown")
+            document.getElementsByClassName("emptyDeck")[1].innerHTML = ""
             return;
         } else if (dealerCardsArray.length == 0) {
             resultaat.innerHTML = "Speler heeft het spel gewonnen";
+            playerCards.innerHTML = "";
             dealerCards.innerHTML = "";
             dealerCards.classList.remove("dealerCard");
+            delenKnopAvailable = false
+            kaaartOmdraaiKnopAvailable = false
+            document.getElementById("delenKnop").style.backgroundColor = "firebrick"
+            document.getElementById("beurtKnop").style.backgroundColor = "firebrick"
+            document.getElementsByClassName("emptyDeck")[0].classList.remove("deck", "brown")
+            document.getElementsByClassName("emptyDeck")[0].innerHTML = ""
             return;
         };
         playerCard[0].innerHTML = ""
@@ -165,12 +183,26 @@ document.getElementById("beurtKnop").addEventListener("click", function () {
     if (playerCardsArray.length == 0) {
         resultaat.innerHTML = "Computer heeft het spel gewonnen";
         playerCards.innerHTML = "";
+        dealerCards.innerHTML = "";
         playerCards.classList.remove("playerCard");
+        delenKnopAvailable = false
+        kaaartOmdraaiKnopAvailable = false
+        document.getElementById("delenKnop").style.backgroundColor = "firebrick"
+        document.getElementById("beurtKnop").style.backgroundColor = "firebrick"
+        document.getElementsByClassName("emptyDeck")[1].classList.remove("deck", "brown")
+        document.getElementsByClassName("emptyDeck")[1].innerHTML = ""
         return;
     } else if (dealerCardsArray.length == 0) {
         resultaat.innerHTML = "Speler heeft het spel gewonnen";
+        playerCards.innerHTML = "";
         dealerCards.innerHTML = "";
         dealerCards.classList.remove("dealerCard");
+        delenKnopAvailable = false
+        kaaartOmdraaiKnopAvailable = false
+        document.getElementById("delenKnop").style.backgroundColor = "firebrick"
+        document.getElementById("beurtKnop").style.backgroundColor = "firebrick"
+        document.getElementsByClassName("emptyDeck")[0].classList.remove("deck", "brown")
+        document.getElementsByClassName("emptyDeck")[0].innerHTML = ""
         return;
     };
     if (omgedraaid == false) {
